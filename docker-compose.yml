@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: "${DOCKER_HUB_USERNAME}/gdgoc-solution-gallery:latest"
+    container_name: gdgoc-solution-gallery
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+    command: "npm run start"
+
