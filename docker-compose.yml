@@ -2,11 +2,11 @@ version: "3.8"
 
 services:
   frontend:
-    image: "${DOCKER_HUB_USERNAME}/gdgoc-solution-gallery:latest"
-    container_name: gdgoc-solution-gallery
+    image: "${DOCKER_HUB_USERNAME}/gdgoc-solution-fe-app:latest"
+    container_name: gdgoc-solution-fe-app
     restart: always
     ports:
-      - "3001:3001"
+      - "3001:3000"
     environment:
       NODE_ENV: production
     working_dir: /app

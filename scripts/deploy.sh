@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/gdgoc-solution-gallery
+cd /home/ubuntu/gdgoc-solution-fe-app
 
 # Docker & Docker Compose가 설치되어 있는지 확인
 if ! [ -x "$(command -v docker)" ]; then
@@ -29,7 +29,7 @@ docker volume prune -f
 
 # 최신 이미지 가져오기
 export $(grep -v '^#' .env | xargs)
-docker pull ${DOCKER_HUB_USERNAME}/gdgoc-solution-gallery:latest
+docker pull ${DOCKER_HUB_USERNAME}/gdgoc-solution-fe-app:latest
 
 # 컨테이너 실행
 docker-compose --env-file .env up -d

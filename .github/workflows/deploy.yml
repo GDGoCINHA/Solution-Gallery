@@ -27,15 +27,15 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/gdgoc-solution-gallery:latest .
-        docker run --rm ${{ secrets.DOCKER_HUB_USERNAME }}/gdgoc-solution-gallery:latest ls -la /app
-        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/gdgoc-solution-gallery:latest
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/gdgoc-solution-fe-app:latest .
+        docker run --rm ${{ secrets.DOCKER_HUB_USERNAME }}/gdgoc-solution-fe-app:latest ls -la /app
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/gdgoc-solution-fe-app:latest
 
     - name: Create Deployment Package
       run: |
         cp scripts/deploy.sh ./deploy.sh
         zip -r deploy.zip .env docker-compose.yml deploy.sh appspec.yml \
-            Dockerfile package.json package-lock.json next.config.ts \
+            Dockerfile package.json package-lock.json next.config.mjs \
             pages public .next
 
     - name: Configure AWS credentials
@@ -46,7 +46,7 @@ jobs:
 
     - name: Upload Deployment Package to S3
       run: |
-        aws s3 cp deploy.zip s3://${{ secrets.AWS_S3_BUCKET }}/deploy.zip
+        aws s3 cp deploy.zip s3://${{ secrets.AWS_S3_BUCKET }}/solution-deploy.zip
 
     - name: Trigger CodeDeploy (CLI)
       env:
@@ -57,5 +57,5 @@ jobs:
         aws deploy create-deployment \
           --application-name ${{ secrets.AWS_CODEDEPLOY_APP }} \
           --deployment-group-name ${{ secrets.AWS_CODEDEPLOY_GROUP }} \
-          --s3-location bucket=${{ secrets.S3_BUCKET }},bundleType=zip,key=deploy.zip \
+          --s3-location bucket=${{ secrets.S3_BUCKET }},bundleType=zip,key=solution-deploy.zip \
           --file-exists-behavior OVERWRITE
