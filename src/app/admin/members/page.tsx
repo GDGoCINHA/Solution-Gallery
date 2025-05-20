@@ -329,7 +329,10 @@ export default function MembersPage() {
                 <label className="text-sm font-medium">프로필 이미지</label>
                 <div className="flex items-center gap-4">
                   {profileImagePreview ? (
-                    <Image src={profileImagePreview} alt="미리보기" className="w-16 h-16 rounded-full object-cover" width={64} height={64} />
+                    <>
+                      <Image src={profileImagePreview} alt="미리보기" className="w-16 h-16 rounded-full object-cover" width={64} height={64} />
+                      <p className="text-xs text-muted-foreground mt-1">이미지 선택 후 <b>멤버 추가</b>를 눌러야 반영됩니다.</p>
+                    </>
                   ) : null}
                   <input
                     type="file"
@@ -479,7 +482,10 @@ export default function MembersPage() {
                       <label className="text-sm font-medium">프로필 이미지</label>
                       <div className="flex items-center gap-4">
                         {profileImagePreview ? (
-                          <Image src={profileImagePreview} alt="미리보기" className="w-16 h-16 rounded-full object-cover" width={64} height={64} />
+                          <>
+                            <Image src={profileImagePreview} alt="미리보기" className="w-16 h-16 rounded-full object-cover" width={64} height={64} />
+                            <p className="text-xs text-muted-foreground mt-1">이미지 선택 후 <b>저장</b>을 눌러야 반영됩니다.</p>
+                          </>
                         ) : editData.profile_image_url ? (
                           <Image src={editData.profile_image_url} alt="기존 이미지" className="w-16 h-16 rounded-full object-cover" width={64} height={64} />
                         ) : null}

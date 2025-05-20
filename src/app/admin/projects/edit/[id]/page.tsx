@@ -473,6 +473,11 @@ export default function EditProjectPage() {
           return;
         }
       }
+
+      // 2-1. 첨부파일 업로드 (newFiles가 있으면 자동 업로드)
+      if (newFiles.length > 0) {
+        await handleFileUpload();
+      }
       
       // 3. 프로젝트 태그 업데이트
       // 3-1. 기존 태그 삭제
@@ -834,9 +839,6 @@ export default function EditProjectPage() {
                   onChange={handleFileChange}
                   className="mb-2"
                 />
-                <Button type="button" variant="outline" onClick={handleFileUpload} disabled={!newFiles.length}>
-                  파일 업로드
-                </Button>
                 {fileUploadProgress > 0 && (
                   <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
                     <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${fileUploadProgress}%` }}></div>
